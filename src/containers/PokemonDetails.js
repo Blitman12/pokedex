@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/styles'
 import axios from 'axios'
 import { POKEMON_API_URL } from '../config'
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { connect } from 'react-redux'
 
 const styles = (theme) => ({
     pokedexContainer: {
@@ -124,5 +125,12 @@ class PokemonDetails extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    
+})
 
-export default withStyles(styles)(PokemonDetails);
+const mapDispatchToProps = (dispatch) => ({
+    
+})
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(PokemonDetails));
