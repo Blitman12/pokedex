@@ -5,6 +5,7 @@ import axios from 'axios'
 import { POKEMON_API_URL } from '../config'
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { connect } from 'react-redux'
+import { toggleFavorite } from '../redux/actions'
 
 const styles = (theme) => ({
     pokedexContainer: {
@@ -43,6 +44,7 @@ const styles = (theme) => ({
     }
 })
 
+
 class PokemonDetails extends Component {
     constructor(props) {
         super(props)
@@ -62,6 +64,15 @@ class PokemonDetails extends Component {
             })
     }
 
+favoriteChecker (pokemon) {
+    let found = false;
+    this.props.favorites?.map((p) => {
+        if (p.id === pokemon.id) {
+            found = true
+        }
+    })
+    return found
+}
 
     render() {
         const { pokemon } = this.state;
@@ -77,8 +88,8 @@ class PokemonDetails extends Component {
                             <hr className={classes.separator} />
                             <Grid container>
                                 <Grid item md={1}>
-                                    <Button className={classes.favorite}>
-                                        <FavoriteIcon style={{ color: "white", fontSize: 50 }} />
+                                    <Button className={classes.favorite} onClick={() => this.props.toggleFavorite(pokemon)}>
+                                        <FavoriteIcon style={{ color: this.favoriteChecker(pokemon) ? "red" : "white", fontSize: 50 }} />
                                     </Button>
                                 </Grid>
                                 <Grid item md={2}>
@@ -126,11 +137,11 @@ class PokemonDetails extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
+    favorites: state.favorites
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    
+    toggleFavorite: (pokemon) => dispatch(toggleFavorite(pokemon))
 })
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(PokemonDetails));

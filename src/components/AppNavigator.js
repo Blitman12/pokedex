@@ -26,6 +26,9 @@ export default function AppNavigator() {
                 <Link to="/" className={classes.link}>
                     <Typography className={classes.title} variant="h6">Pokedex</Typography>
                 </Link>
+                <Link to="/favorite" className={classes.link}>
+                    <Typography className={classes.title} variant="h6" style={{marginLeft: 15}}>Favorites</Typography>
+                </Link>
             </Toolbar>
         </AppBar>
     )
